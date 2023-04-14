@@ -1,9 +1,72 @@
-import React from 'react'
+import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
+import {useNavigate} from 'react-router';
+import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg';
+import visibilityIcon from '../assets/svg/visibilityIcon.svg';
 
 const SignIn = () => {
+  const navigate = useNavigate();
+  const [showPass, setShowPass] = useState(false);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: ''
+  });
+  const {email, password} = formData;
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value
+    }))
+  }
+
   return (
     <div>
-        <h1>SignIn</h1>
+        <div className="pageContainer">
+          <header>
+            <p className="pageHeader">
+              Welcome Back 
+            </p>
+          </header>
+          <main>
+            <form>
+              <input 
+                type="email" 
+                className='emailInput'
+                placeholder='Email' 
+                id='email' 
+                value={email}
+                onChange={onchange} 
+              />
+              <div className="passwordInputDiv">
+                <input 
+                  type={showPass ? 'text' : 'password'} 
+                  className="passwordInput" 
+                  id='password'
+                  value={password}
+                  placeholder='Password'
+                  onChange={onChange}
+                />
+                <img
+                  src={visibilityIcon}
+                  alt='Show Password'
+                  className='showPassword'
+                  onClick={() => setShowPass((prevState) => !prevState)}
+                />
+              </div>
+              <Link to='/forgot-password' className='forgotPasswordLink'>Forgot Password</Link>
+              <div className="signInBar">
+                <p className="signInText">
+                  Sign In
+                </p>
+                <button className="signInButton">
+                  <ArrowRightIcon fill='#ffffff' width='34px' height='34px' />
+                </button>
+              </div>
+            </form>
+
+            <Link to='/sign-up' className='registerLink'>Sign Up Instead</Link>
+          </main>
+        </div>
     </div>
   )
 }
