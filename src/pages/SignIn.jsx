@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router';
 import { getAuth, signInWithEmailAndPassword } from '@firebase/auth';
 import { ReactComponent as ArrowRightIcon } from '../assets/svg/keyboardArrowRightIcon.svg';
 import visibilityIcon from '../assets/svg/visibilityIcon.svg';
+import { toast } from 'react-toastify';
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -30,6 +31,7 @@ const SignIn = () => {
       }
     } catch(e){
       console.log('error: ', e);
+      toast.error('Bad User Credentials');
     }
     
   }
@@ -50,7 +52,7 @@ const SignIn = () => {
                 placeholder='Email' 
                 id='email' 
                 value={email}
-                onChange={onchange} 
+                onChange={onChange} 
               />
               <div className="passwordInputDiv">
                 <input 
